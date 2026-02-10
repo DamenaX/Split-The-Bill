@@ -11,7 +11,7 @@ function AddGroup() {
                 <Heading tagName="h1" level="1" className="mb-9"> Add a group to get started </Heading>
                 <form className='w-full space-y-3'>
                     <TextInput placeholder="Group name" isRequired={false} variant="default-wide"  />
-                    <Button variant="h" type="submit"> Hello </Button>
+                    <Button variant="default" type="submit"> Hello </Button>
                 </form>
             </MobileContainer>
         </MainContainer>

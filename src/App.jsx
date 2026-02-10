@@ -16,10 +16,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AddGroup />}/>
-        <Route path="add-members" element={AddMembers} />
-        <Route path="groups/:id" element={Group} />
-        <Route path="groups/:id/add-expense" element={AddExpense} />
-        <Route path="Dashboard" element={Dashboard} />
+        <Route path="add-members" element={<AddMembers />} />
+        <Route path="groups/:id" element={<Group />} />
+        <Route path="groups/:id/add-expense" element={<AddExpense />} />
+        <Route path="Dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
     
