@@ -1,8 +1,8 @@
-function Button({variant, children}) {
+function Button({variant, children, type}) {
     const base = ""
     const variants = {}
     return (
-        <button className="w-full bg-emerald-500 p-2 text-center"> {children} </button>
+        <button type={type} className="w-full bg-emerald-500 p-2 text-center"> {children} </button>
     )
 }
 

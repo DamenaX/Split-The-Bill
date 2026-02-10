@@ -1,16 +1,16 @@
 
 
-function Heading({tagName: Tag, level, children}) {
+function Heading({tagName: Tag, level, children, className}) {
   
   const levels = {
-    1: 'text-3xl font-bold',
-    2: 'text-2xl font-semibold',
-    3: 'text-xl font-semibold',
-    4: 'text-lg font-medium'
+    1: 'text-3xl font-bold text-center',
+    2: 'text-2xl font-semibold text-center',
+    3: 'text-xl font-semibold text-center',
+    4: 'text-lg font-medium text-center'
   }
 
   return (
-    <Tag className={`${levels[level]}`}> {children} </Tag>
+    <Tag className={`${levels[level]} ${className}`}> {children} </Tag>
   )
 }
 

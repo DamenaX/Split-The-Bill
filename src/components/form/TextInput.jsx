@@ -1,6 +1,6 @@
 function TextInput({ placeholder, isRequired, variant, label}) {
 
-    const base = "w-full px-4 py-3 rounded-xl border transition-all outline-none text-base"
+    const base = "w-full px-4 py-3 border transition-all outline-none text-base rounded-s"
     const variants = {
         "default-wide": "border-gray-200 focus:border-blue-500 bg-white",
         "filled-wide": "border-transparent bg-gray-100 focus:bg-white focus:border-blue-500",

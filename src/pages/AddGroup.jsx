@@ -8,10 +8,10 @@ function AddGroup() {
     return (
         <MainContainer>
             <MobileContainer>
-                <Heading tagName="h1" level="1"> Hello </Heading>
-                <form>
-                    <TextInput placeholder="Group name" isRequired={false} variant="default-wide" label="Hello" />
-                    <Button variant="h"> Hello </Button>
+                <Heading tagName="h1" level="1" className="mb-9"> Add a group to get started </Heading>
+                <form className='w-full space-y-3'>
+                    <TextInput placeholder="Group name" isRequired={false} variant="default-wide"  />
+                    <Button variant="h" type="submit"> Hello </Button>
                 </form>
             </MobileContainer>
         </MainContainer>
