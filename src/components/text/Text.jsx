@@ -1,6 +1,6 @@
-import { Children } from "react";
+;
 
-function Text({variant}) {
+function Text({variant, children}) {
     const base = ""
     const variants = {
         body: "text-base text-gray-800 leading-relaxed",
@@ -10,7 +10,7 @@ function Text({variant}) {
     }
 
     return (
-        <p className={variants[variant]}>{Children} </p>
+        <p className={variants[variant]}>{children} </p>
     )
 }
 

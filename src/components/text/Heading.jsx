@@ -1,7 +1,7 @@
-import { Children } from "react"
 
-function Heading({tagName: Tag, level}) {
-    
+
+function Heading({tagName: Tag, level, children}) {
+  
   const levels = {
     1: 'text-3xl font-bold',
     2: 'text-2xl font-semibold',
@@ -10,7 +10,7 @@ function Heading({tagName: Tag, level}) {
   }
 
   return (
-    <Tag className={`${base} ${levels[level]}`}> {Children} </Tag>
+    <Tag className={`${levels[level]}`}> {children} </Tag>
   )
 }
 

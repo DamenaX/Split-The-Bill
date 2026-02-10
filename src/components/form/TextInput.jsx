@@ -15,3 +15,5 @@ function TextInput({ placeholder, isRequired, variant, label}) {
 
     )
 }
+
+export default TextInput
