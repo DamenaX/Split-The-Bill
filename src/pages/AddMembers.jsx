@@ -9,7 +9,7 @@ import TextInput from "../components/form/TextInput"
 function AddMembers() {
     return (
         <MainContainer>
-            <MobileContainer>
+            <MobileContainer variant="centered">
                 <Heading tagName="h1" level="1" className="mb-8">Add the names of the Group Members</Heading>
                 <form className='w-full space-y-8'>
                     <div>

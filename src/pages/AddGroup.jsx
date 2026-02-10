@@ -7,7 +7,7 @@ import MainContainer from '../components/MainContainer'
 function AddGroup() {
     return (
         <MainContainer>
-            <MobileContainer>
+            <MobileContainer variant="centered">
                 <Heading tagName="h1" level="1" className="mb-9"> Add a group to get started </Heading>
                 <form className='w-full space-y-3'>
                     <TextInput placeholder="Group name" isRequired={false} variant="default-wide"  />
