@@ -1,9 +1,7 @@
-import { Children } from "react";
-
-function MobileContainer() {
+function MobileContainer({children}) {
     return (
-        <div className="flex flex-col justify-center items-center w-full max-w-sm min-h-[85dvh] p-7 border-gray-100">
-            {Children}
+        <div className="flex flex-col justify-center items-center w-full max-w-sm h-dvh p-7 border-gray-100">
+            {children}
         </div>
     );
 }
