@@ -1,4 +1,4 @@
-function Button({variant, children, type}) {
+function Button({variant, children, type, onClick}) {
     const base = ""
     const variants = {
         "default": "w-full bg-emerald-500 p-2 text-center",
@@ -7,7 +7,7 @@ function Button({variant, children, type}) {
         "tab-selected": "bg-none text-emerald-600 border-b-4 font-bold"
     }
     return (
-        <button type={type} className={variants[variant]}> {children} </button>
+        <button onClick={onClick} type={type} className={variants[variant]}> {children} </button>
     )
 }
 
