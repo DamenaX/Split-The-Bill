@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<AddGroup />}/>
         <Route path="add-members" element={<AddMembers />} />
         <Route path="groups" element={<Group />} />
-        <Route path="groups/:id/add-expense" element={<AddExpense />} />
+        <Route path="groups/add-expense" element={<AddExpense />} />
         <Route path="Dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
