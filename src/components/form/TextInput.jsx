@@ -1,4 +1,4 @@
-function TextInput({ placeholder, isRequired, variant, label}) {
+function TextInput({ placeholder, isRequired, variant, label, id}) {
 
     const base = "w-full px-4 py-3 border transition-all outline-none text-base rounded-s mb-2"
     const variants = {
@@ -8,9 +8,9 @@ function TextInput({ placeholder, isRequired, variant, label}) {
     }
 
     return (
-        <div>
-            <label>{label}</label>
-            <input type="text" placeholder={placeholder} className={`${base} ${variants[variant]}`} required={isRequired} />
+        <div className="flex flex-col space-y-2">
+            <label htmlFor={id}>{label}</label>
+            <input id={id} type="text" placeholder={placeholder} className={`${base} ${variants[variant]}`} required={isRequired} />
         </div>
 
     )
