@@ -16,7 +16,13 @@ function ExpenseTab({ group }) {
                             <div id="expense-name">{e.description}</div>
                         </div>
                         <div id="paid-information" className="flex flex-col text-right">
-                            <p>Paid by {group.members.find(m => m.id === (e.payers && e.payers[0] && e.payers[0].memberId))?.name || 'Unknown'}</p>
+                            {/* <p>Paid by {group.members.find(m => m.id === (e.payers && e.payers[0] && e.payers[0].memberId))?.name || 'Unknown'}</p> */}
+                            <p>
+                                {e.payers && e.payers.length > 1
+                                    ? `Paid by ${e.payers.length} people`
+                                    : `Paid by ${group.members.find(m => m.id === (e.payers?.[0]?.memberId))?.name || 'Unknown'}`
+                                }
+                            </p>
                             <p>${e.total}</p>
                         </div>
                     </li>
