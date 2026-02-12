@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer, useRef } from 'react'
+import calculateBalances from '../utils/balances'
 
 const STORAGE_KEY = 'split-the-bill:v1'
 const GroupsContext = createContext(null)
@@ -61,6 +62,17 @@ function reducer(state, action) {
       if (!groupId || !Array.isArray(members)) return state
       return { ...state, groups: state.groups.map(g => g.id === groupId ? { ...g, members: [...g.members, ...members] } : g) }
     }
+
+    case 'DELETE_MEMBER': {
+      const { groupId, memberId } = action.payload || {}
+      if (!groupId || memberId === undefined) return state
+      return { ...state, groups: state.groups.map(g => g.id === groupId ? { ...g, members: g.members.filter(m => String(m.id) !== String(memberId)) } : g) }
+    }
+    case 'DELETE_GROUP': {
+      const { groupId } = action.payload || {}
+      if (!groupId) return state
+      return { ...state, groups: state.groups.filter(g => String(g.id) !== String(groupId)) }
+    }
     case 'ADD_EXPENSE': {
       const { groupId, expense } = action.payload || {}
       if (!groupId || !expense) return state
@@ -100,7 +112,33 @@ export function GroupsProvider({ children }) {
   function addMembers(groupId, members) {
     const normalized = members.map(m => ({ ...m, id: normalizeId(m.id) }))
     const gid = normalizeId(groupId)
-    dispatch({ type: 'ADD_MEMBERS', payload: { groupId: gid, members: normalized } })
+    // dedupe against existing members by id or name
+    const g = getGroupById(gid)
+    const existing = Array.isArray(g && g.members) ? g.members : []
+    const toAdd = normalized.filter(nm => {
+      return !existing.some(em => String(em.id) === String(nm.id) || (em.name && nm.name && String(em.name).trim() === String(nm.name).trim()))
+    })
+    if (!toAdd.length) return
+    dispatch({ type: 'ADD_MEMBERS', payload: { groupId: gid, members: toAdd } })
+  }
+
+  function deleteMember(groupId, memberId) {
+    const gid = normalizeId(groupId)
+    const g = getGroupById(gid)
+    if (!g) return false
+    const balances = calculateBalances(g)
+    const net = balances && balances.net ? balances.net : {}
+    const val = net[memberId] || net[String(memberId)] || 0
+    // require net balance to be zero (rounded to cents)
+    if (Math.round((val || 0) * 100) !== 0) return false
+    dispatch({ type: 'DELETE_MEMBER', payload: { groupId: gid, memberId: normalizeId(memberId) } })
+    return true
+  }
+
+  function deleteGroup(groupId) {
+    const gid = normalizeId(groupId)
+    dispatch({ type: 'DELETE_GROUP', payload: { groupId: gid } })
+    return true
   }
 
   function addExpense(groupId, expense) {
@@ -122,7 +160,7 @@ export function GroupsProvider({ children }) {
   }
 
   return (
-    <GroupsContext.Provider value={{ state, createGroup, addMembers, addExpense, deleteExpense, getGroupById }}>
+    <GroupsContext.Provider value={{ state, createGroup, addMembers, addExpense, deleteExpense, getGroupById, deleteMember, deleteGroup }}>
       {children}
     </GroupsContext.Provider>
   )

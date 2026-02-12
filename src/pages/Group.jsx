@@ -10,12 +10,14 @@ import UserBubble from "../components/UserBubble"
 import ExpenseTab from "../components/ExpenseTab"
 import BalanceTab from "../components/BalanceTab"
 import { useGroups } from '../state/GroupsProvider'
+import calculateBalances from '../utils/balances'
 
 function Group() {
     const [tab, setTab] = useState("Expense")
+    const [showAllMembers, setShowAllMembers] = useState(false)
     const { groupId } = useParams()
     const navigate = useNavigate()
-    const { getGroupById } = useGroups()
+    const { getGroupById, deleteMember } = useGroups()
     const group = getGroupById(groupId)
 
     if (!group) return (
@@ -41,8 +43,46 @@ function Group() {
                         </div>
                     </div>
 
-                    <div data-role="members-list" className="flex justify-evenly h-fit p-3 w-full">
-                        {group.members.map(m => <UserBubble key={m.id} member={m} />)}
+                    <div data-role="members-list" className="flex items-center space-x-3 h-fit p-3 w-full overflow-x-auto">
+                        {(() => {
+                            const total = group.members.length
+                            const showAll = showAllMembers
+                            const list = showAll ? group.members : group.members.slice(0, 4)
+                            return (
+                                <>
+                                    <div className="flex items-center space-x-3">
+                                        {list.map(m => (
+                                            <div key={m.id} className="flex flex-col items-center">
+                                                <UserBubble member={m} />
+                                                <div className="flex items-center mt-1 space-x-1">
+                                                    <button onClick={() => navigate(`/groups/${groupId}/add-members`)} className="text-sm mr-1">Edit</button>
+                                                    <button onClick={() => {
+                                                        const ok = window.confirm(`Delete ${m.name}? This requires their balance be zero.`)
+                                                        if (!ok) return
+                                                        const success = deleteMember(groupId, m.id)
+                                                        if (!success) {
+                                                            const { net } = calculateBalances(group)
+                                                            const v = net && (net[m.id] || net[String(m.id)]) || 0
+                                                            window.alert(`${m.name} cannot be deleted. Balance is $${v.toFixed(2)} (must be $0.00).`)
+                                                        }
+                                                    }} className="text-xs text-red-600">Delete</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {total > 4 && (
+                                        <div>
+                                            {!showAll && (
+                                                <button onClick={() => setShowAllMembers(true)} className="text-sm text-blue-600">Show members (+{total - 4})</button>
+                                            )}
+                                            {showAll && (
+                                                <button onClick={() => setShowAllMembers(false)} className="text-sm text-gray-600">Hide members</button>
+                                            )}
+                                        </div>
+                                    )}
+                                </>
+                            )
+                        })()}
                     </div>
                 </header>
                 <div id="tabs" className="flex w-full">
