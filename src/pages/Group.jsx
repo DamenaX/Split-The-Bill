@@ -47,15 +47,14 @@ function Group() {
                         {(() => {
                             const total = group.members.length
                             const showAll = showAllMembers
-                            const list = showAll ? group.members : group.members.slice(0, 4)
+                            const list = showAll ? group.members : group.members.slice(0, 3)
                             return (
                                 <>
-                                    <div className="flex items-center space-x-3">
+                                    <div className="flex items-center space-x-8">
                                         {list.map(m => (
                                             <div key={m.id} className="flex flex-col items-center">
                                                 <UserBubble member={m} />
                                                 <div className="flex items-center mt-1 space-x-1">
-                                                    <button onClick={() => navigate(`/groups/${groupId}/add-members`)} className="text-sm mr-1">Edit</button>
                                                     <button onClick={() => {
                                                         const ok = window.confirm(`Delete ${m.name}? This requires their balance be zero.`)
                                                         if (!ok) return
@@ -65,7 +64,7 @@ function Group() {
                                                             const v = net && (net[m.id] || net[String(m.id)]) || 0
                                                             window.alert(`${m.name} cannot be deleted. Balance is $${v.toFixed(2)} (must be $0.00).`)
                                                         }
-                                                    }} className="text-xs text-red-600">Delete</button>
+                                                    }} className="text-xs text-red-600">Remove</button>
                                                 </div>
                                             </div>
                                         ))}
@@ -73,7 +72,7 @@ function Group() {
                                     {total > 4 && (
                                         <div>
                                             {!showAll && (
-                                                <button onClick={() => setShowAllMembers(true)} className="text-sm text-blue-600">Show members (+{total - 4})</button>
+                                                <button onClick={() => setShowAllMembers(true)} className="text-sm text-blue-600">Show members (+{total - 3})</button>
                                             )}
                                             {showAll && (
                                                 <button onClick={() => setShowAllMembers(false)} className="text-sm text-gray-600">Hide members</button>
@@ -85,6 +84,7 @@ function Group() {
                         })()}
                     </div>
                 </header>
+
                 <div id="tabs" className="flex w-full">
                     <div className="flex justify-center px-3 py-2 w-full">
                         <label htmlFor="Expense" className="text-center">Expenses</label>

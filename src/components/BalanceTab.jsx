@@ -3,9 +3,21 @@ import calculateBalances from '../utils/balances'
 
 function BalanceTab({ group }) {
     if (!group) return <div />
-    const balances = calculateBalances(group)
+    let balances = { net: {}, pairwise: {} }
+    try {
+        balances = calculateBalances(group) || balances
+    } catch (err) {
+        console.error('calculateBalances error', err)
+        return <div className="p-4 text-red-600">Error computing balances</div>
+    }
     const net = balances.net || {}
     const pairwise = balances.pairwise || {}
+
+    const fmt = (v) => {
+        const n = Number(v)
+        if (!Number.isFinite(n)) return '0.00'
+        return n.toFixed(2)
+    }
 
     return (
         <div className="w-full h-full space-y-2">
@@ -22,22 +34,22 @@ function BalanceTab({ group }) {
                                     <div title="profile-picture" className="w-9 h-9 rounded-full bg-blue-600 mr-3"></div>
                                     <p>{m.name}</p>
                                 </div>
-                                <p className={nv < 0 ? 'text-red-600' : 'text-green-600'}>
-                                    {nv < 0 ? `owes $${Math.abs(nv).toFixed(2)}` : `is owed $${Math.abs(nv).toFixed(2)}`}
-                                </p>
+                                        <p className={Number(nv) < 0 ? 'text-red-600' : 'text-green-600'}>
+                                            {Number(nv) < 0 ? `owes $${fmt(Math.abs(nv))}` : `is owed $${fmt(Math.abs(nv))}`}
+                                        </p>
                             </div>
                             <div className="mt-2 ml-12 text-sm">
                                 {owesList.length > 0 && (
                                     <div>
                                         {owesList.map(([toId, amt]) => {
                                             const to = group.members.find(x => String(x.id) === String(toId))
-                                            return <div key={toId} className="text-red-500">{"owes $" + amt.toFixed(2) + " to " + (to ? to.name : toId)}</div>
+                                            return <div key={toId} className="text-red-500">{"owes $" + fmt(amt) + " to " + (to ? to.name : toId)}</div>
                                         })}
                                     </div>
                                 )}
                                 {owedByList.length > 0 && (
                                     <div>
-                                        {owedByList.map(o => <div key={o.id} className="text-green-600">{"is owed $" + o.amt.toFixed(2) + " by " + o.name}</div>)}
+                                        {owedByList.map(o => <div key={o.id} className="text-green-600">{"is owed $" + fmt(o.amt) + " by " + o.name}</div>)}
                                     </div>
                                 )}
                             </div>
