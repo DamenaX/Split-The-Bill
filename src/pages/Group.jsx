@@ -86,14 +86,14 @@ function Group() {
                 </header>
 
                 <div id="tabs" className="flex w-full">
-                    <div className="flex justify-center px-3 py-2 w-full">
-                        <label htmlFor="Expense" className="text-center">Expenses</label>
-                        <input type="radio" name="tab" value="Expense" id="Expense" className="hidden" onChange={(e) => { setTab(e.target.value) }} defaultChecked />
+                    <div className="flex justify-center px-3 py-2 w-full has-checked:border-b-2 border-emerald-600">
+                        <input type="radio" name="tab" value="Expense" id="Expense" className="hidden peer" onChange={(e) => { setTab(e.target.value) }} defaultChecked />
+                        <label htmlFor="Expense" className="text-center peer-checked:text-emerald-600 ">Expenses</label>
                     </div>
 
-                    <div className="flex justify-center px-3 py-2 w-full">
-                        <label htmlFor="Balance" className="text-center">Balance</label>
-                        <input type="radio" name="tab" value="Balance" id="Balance" className="hidden" onChange={(e) => { setTab(e.target.value) }} />
+                    <div className="flex justify-center px-3 py-2 w-full has-checked:border-b-2 border-emerald-600">
+                        <input type="radio" name="tab" value="Balance" id="Balance" className="hidden peer" onChange={(e) => { setTab(e.target.value) }} />
+                        <label htmlFor="Balance" className="text-center peer-checked:text-emerald-600">Balance</label>
                     </div>
                 </div>
                 {tab === "Expense" ? <ExpenseTab group={group} /> : <BalanceTab group={group} />}
