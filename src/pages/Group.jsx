@@ -31,26 +31,26 @@ function Group() {
     return (
         <MainContainer>
             <MobileContainer variant="normal">
-                <header className="w-full">
-                    <div data-role="group-header" className="flex h-fit p-3 w-full">
-                        <div className="flex flex-col w-full">
+                <header className="w-full ">
+                    <div data-role="group-header" className="flex h-fit p-3 w-full border rounded-sm">
+                        <div className="flex flex-col w-full ">
                             <p>{group.name}</p>
-                            <p>{group.members.length} Members</p>
+                            <p className="text-sm text-gray-500">{group.members.length} Members</p>
                         </div>
 
                         <div className="flex w-full justify-center items-center">
-                            <button onClick={() => navigate(`/groups/${groupId}/add-members`)}>+</button>
+                            <button onClick={() => navigate(`/groups/${groupId}/add-members`)} className=" rounded-sm px-3 py-2 bg-emerald-600 text-white">+ Add member</button>
                         </div>
                     </div>
 
-                    <div data-role="members-list" className="flex items-center space-x-3 h-fit p-3 w-full overflow-x-auto">
+                    <div data-role="members-list" className="flex items-center space-x-3 h-fit p-3 w-full overflow-x-auto ">
                         {(() => {
                             const total = group.members.length
                             const showAll = showAllMembers
                             const list = showAll ? group.members : group.members.slice(0, 3)
                             return (
                                 <>
-                                    <div className="flex items-center space-x-8">
+                                    <div className="flex items-center space-x-8 w-full">
                                         {list.map(m => (
                                             <div key={m.id} className="flex flex-col items-center">
                                                 <UserBubble member={m} />
