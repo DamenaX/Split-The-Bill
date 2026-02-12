@@ -48,13 +48,13 @@ function AddMembers() {
 
     return (
         <MainContainer>
-            <MobileContainer variant="centered">
+            <MobileContainer variant="scroll">
                 <Heading tagName="h1" level="1" className="mb-8">Add the names of the Group Members</Heading>
                 <form className='w-full space-y-8' onSubmit={onSubmit}>
                         {existingMembers && existingMembers.length > 0 && (
-                            <div className="w-full">
-                                <p className="mb-2">Existing members:</p>
-                                <ul className="mb-4">
+                            <div className="w-full rounded-md bg-gray-50 border border-gray-200 px-4 py-2">
+                                <p className="mb-2 text-gray-500">Existing members:</p>
+                                <ul className="">
                                     {existingMembers.map(m => <li key={m.id} className="py-1">{m.name}</li>)}
                                 </ul>
                             </div>
@@ -63,7 +63,7 @@ function AddMembers() {
                         {members.map((member, index) => {
                             return (
                                 <div key={member.id} className="flex w-full space-x-2 items-center">
-                                    <input value={member.name} onChange={e => updateName(member.id, e.target.value)} placeholder="Name" required className="flex-1 border px-3 py-2 rounded" />
+                                    <input value={member.name} onChange={e => updateName(member.id, e.target.value)} placeholder="Name" required className="flex-1 border border-gray-300 px-3 py-2 rounded" />
                                     {index !== 0 && (
                                         <button type="button" onClick={() => removeMember(member.id)}>
                                             <img src={cancelicon} alt="remove" width="16px" height="16px"/>
