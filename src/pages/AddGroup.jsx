@@ -30,7 +30,7 @@ function AddGroup() {
                         <h2 className="text-lg font-semibold mb-2">Your groups</h2>
                         <ul className="space-y-2">
                             {groups.map(g => (
-                                <li key={g.id} className="border p-3 rounded flex justify-between items-center" onClick={() => navigate(`/groups/${g.id}`)}>
+                                <li key={g.id} className="border border-gray-400  p-3 rounded flex justify-between items-center" onClick={() => navigate(`/groups/${g.id}`)}>
                                     <div>
                                         <div className="font-medium">{g.name}</div>
                                         <div className="text-sm text-gray-500">{g.members.length} members</div>
@@ -53,7 +53,7 @@ function AddGroup() {
                 <form className='w-full space-y-3' onSubmit={onSubmit}>
                     <div className="flex flex-col w-full">
                         <label htmlFor="group-name">Group name</label>
-                        <input id="group-name" value={name} onChange={e => setName(e.target.value)} className="border px-3 py-2 rounded" placeholder="Group name" required />
+                        <input id="group-name" value={name} onChange={e => setName(e.target.value)} className="border border-gray-400 px-3 py-2 rounded" placeholder="Group name" required />
                     </div>
                     <Button variant="default" type="submit"> Create Group </Button>
                 </form>
