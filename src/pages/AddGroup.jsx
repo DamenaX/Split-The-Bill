@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import MobileContainer from '../components/MobileContainer'
 import Heading from '../components/text/Heading'
-import TextInput from '../components/form/TextInput'
 import Button from '../components/buttons/Button'
 import MainContainer from '../components/MainContainer'
 import { useGroups } from '../state/GroupsProvider'
@@ -15,28 +14,42 @@ function AddGroup() {
     function onSubmit(e) {
         e.preventDefault()
         if (!name.trim()) return
-        createGroup({ name: name.trim() })
-        // find created group id (last in list)
-        const g = state.groups[state.groups.length - 1]
-        // there is a slight chance state not updated synchronously; safer to read from localStorage
-        const raw = localStorage.getItem('split-the-bill:v1')
-        if (raw) {
-            try {
-                const parsed = JSON.parse(raw)
-                const last = parsed.groups && parsed.groups[parsed.groups.length - 1]
-                if (last && last.id) {
-                    navigate(`/groups/${last.id}`)
-                    return
-                }
-            } catch (e) {}
-        }
-        if (g && g.id) navigate(`/groups/${g.id}`)
+        const id = createGroup({ name: name.trim() })
+        if (id) navigate(`/groups/${id}`)
     }
+
+    const groups = state?.groups || []
 
     return (
         <MainContainer>
             <MobileContainer variant="centered">
-                <Heading tagName="h1" level="1" className="mb-9"> Add a group to get started </Heading>
+                <Heading tagName="h1" level="1" className="mb-6"> Split the Bill </Heading>
+
+                {groups.length ? (
+                    <div className="w-full mb-6">
+                        <h2 className="text-lg font-semibold mb-2">Your groups</h2>
+                        <ul className="space-y-2">
+                            {groups.map(g => (
+                                <li key={g.id} className="border p-3 rounded flex justify-between items-center">
+                                    <div>
+                                        <div className="font-medium">{g.name}</div>
+                                        <div className="text-sm text-gray-500">{g.members.length} members</div>
+                                    </div>
+                                    <div className="space-x-2">
+                                        <button onClick={() => navigate(`/groups/${g.id}`)} className="text-emerald-600">Open</button>
+                                        <Link to={`/groups/${g.id}/add-members`} className="text-blue-500">Add members</Link>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ) : (
+                    <div className="w-full mb-6 text-center text-gray-600">
+                        <p className="mb-2">You don't have any groups yet.</p>
+                        <p>Get started by creating one below.</p>
+                    </div>
+                )}
+
                 <form className='w-full space-y-3' onSubmit={onSubmit}>
                     <div className="flex flex-col w-full">
                         <label htmlFor="group-name">Group name</label>
