@@ -1,48 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from 'react-router-dom'
 import MainContainer from "../components/MainContainer";
 import MobileContainer from "../components/MobileContainer";
 import Button from "../components/buttons/Button";
 import Heading from "../components/text/Heading";
-import TextInput from "../components/form/TextInput";
 import cancelicon from "../assets/cancel.svg";
+import { useGroups } from '../state/GroupsProvider'
+
+function makeId() { return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}` }
 
 function AddMembers() {
-    // Initialize with a unique ID (0)
-    const [members, setMembers] = useState([0]);
+    const { groupId } = useParams()
+    const navigate = useNavigate()
+    const { getGroupById, addMembers } = useGroups()
+
+    const [members, setMembers] = useState([{ id: makeId(), name: '' }])
+
+    useEffect(() => {
+      if (!groupId) return
+      const g = getGroupById(groupId)
+      if (g && g.members && g.members.length) {
+        // prefill with existing members
+        setMembers(g.members.map(m => ({ id: m.id, name: m.name })))
+      }
+    }, [groupId])
 
     function addMember() {
-        // Use the functional update and find the max ID to ensure uniqueness
-        setMembers(prevMembers => {
-            const nextId = prevMembers.length > 0 ? Math.max(...prevMembers) + 1 : 0;
-            return [...prevMembers, nextId];
-        });
+        setMembers(prev => [...prev, { id: makeId(), name: '' }])
     }
 
     function removeMember(idToRemove) {
-        // Filter out the specific ID. This is cleaner than splice.
-        setMembers(prevMembers => prevMembers.filter(id => id !== idToRemove));
+        setMembers(prev => prev.filter(m => m.id !== idToRemove))
+    }
+
+    function updateName(id, value) {
+        setMembers(prev => prev.map(m => m.id === id ? { ...m, name: value } : m))
+    }
+
+    function onSubmit(e) {
+        e.preventDefault()
+        const payload = members.filter(m => m.name && m.name.trim()).map(m => ({ id: m.id, name: m.name.trim() }))
+        if (!payload.length) return
+        addMembers(groupId, payload)
+        navigate(`/groups/${groupId}`)
     }
 
     return (
         <MainContainer>
             <MobileContainer variant="centered">
                 <Heading tagName="h1" level="1" className="mb-8">Add the names of the Group Members</Heading>
-                <form className='w-full space-y-8'>
-                    <div className="space-y-1">
-                        {members.map((memberId, index) => {
+                <form className='w-full space-y-8' onSubmit={onSubmit}>
+                    <div className="space-y-1 w-full">
+                        {members.map((member, index) => {
                             return (
-                                <div key={memberId} className="flex w-full space-x-2 items-center">
-                                    <TextInput 
-                                        variant="medium" 
-                                        placeholder="Name" 
-                                        isRequired={true} 
-                                    />
-                                    {/* Only show the remove button for items after the first one */}
+                                <div key={member.id} className="flex w-full space-x-2 items-center">
+                                    <input value={member.name} onChange={e => updateName(member.id, e.target.value)} placeholder="Name" required className="flex-1 border px-3 py-2 rounded" />
                                     {index !== 0 && (
-                                        <button 
-                                            type="button" 
-                                            onClick={() => removeMember(memberId)}
-                                        >
+                                        <button type="button" onClick={() => removeMember(member.id)}>
                                             <img src={cancelicon} alt="remove" width="16px" height="16px"/>
                                         </button>
                                     )}
