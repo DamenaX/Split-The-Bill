@@ -10,20 +10,21 @@ import { useGroups } from '../state/GroupsProvider'
 function makeId() { return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}` }
 
 function AddMembers() {
-    const { groupId } = useParams()
+        const { groupId } = useParams()
     const navigate = useNavigate()
     const { getGroupById, addMembers } = useGroups()
 
-    const [members, setMembers] = useState([{ id: makeId(), name: '' }])
+        const [existingMembers, setExistingMembers] = useState([])
+        const [members, setMembers] = useState([{ id: makeId(), name: '' }])
 
-    useEffect(() => {
-      if (!groupId) return
-      const g = getGroupById(groupId)
-      if (g && g.members && g.members.length) {
-        // prefill with existing members
-        setMembers(g.members.map(m => ({ id: m.id, name: m.name })))
-      }
-    }, [groupId])
+        useEffect(() => {
+            if (!groupId) return
+            const g = getGroupById(groupId)
+            if (g && g.members && g.members.length) {
+                // show existing members separately; the form only adds new members
+                setExistingMembers(g.members.map(m => ({ id: m.id, name: m.name })))
+            }
+        }, [groupId])
 
     function addMember() {
         setMembers(prev => [...prev, { id: makeId(), name: '' }])
@@ -50,6 +51,14 @@ function AddMembers() {
             <MobileContainer variant="centered">
                 <Heading tagName="h1" level="1" className="mb-8">Add the names of the Group Members</Heading>
                 <form className='w-full space-y-8' onSubmit={onSubmit}>
+                        {existingMembers && existingMembers.length > 0 && (
+                            <div className="w-full">
+                                <p className="mb-2">Existing members:</p>
+                                <ul className="mb-4">
+                                    {existingMembers.map(m => <li key={m.id} className="py-1">{m.name}</li>)}
+                                </ul>
+                            </div>
+                        )}
                     <div className="space-y-1 w-full">
                         {members.map((member, index) => {
                             return (
