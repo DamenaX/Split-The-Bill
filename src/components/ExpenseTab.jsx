@@ -9,7 +9,7 @@ function ExpenseTab({ group }) {
 
     return (
         <div className="w-full h-full space-y-3">
-            <ul className="flex flex-col w-full h-fit divide-y divide-slate-100 border border-slate-100 rounded-xl bg-white">
+            <ul className="flex flex-col w-full h-fit divide-y divide-slate-100 border border-slate-200 md:rounded-md rounded-xl bg-white">
                 {group.expenses.length === 0 && (
                     <li className="px-4 py-4 text-sm text-slate-500 text-center">
                         No expenses yet. Add your first one below.

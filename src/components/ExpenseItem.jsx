@@ -21,10 +21,10 @@ function ExpenseItem({ expense, group }) {
                 className="flex w-full items-center justify-between px-4 py-3 hover:bg-slate-50 transition-colors cursor-pointer select-none"
             >
                 <div className="flex flex-col gap-0.5">
-                    <div className="text-sm font-medium text-slate-900">
+                    <div className="text-md font-medium text-slate-900">
                         {expense.description}
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <div className="flex items-center gap-2 text-sm text-slate-500">
                         <span>
                             {new Date(expense.createdAt).toLocaleDateString()}
                         </span>

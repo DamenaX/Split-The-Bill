@@ -33,7 +33,7 @@ function Group() {
             <MobileContainer variant="scrollable">
                 <header className="w-full ">
                     <div data-role="group-header" className="flex h-fit p-3 w-full rounded-md bg-gray-50 border border-gray-300">
-                        <div className="flex flex-col w-full ">
+                        <div className="flex flex-col min-w-[80px] ">
                             <p>{group.name}</p>
                             <p className="text-sm text-gray-500">{group.members.length} Members</p>
                         </div>

@@ -5,6 +5,8 @@ import Heading from '../components/text/Heading'
 import Button from '../components/buttons/Button'
 import MainContainer from '../components/MainContainer'
 import { useGroups } from '../state/GroupsProvider'
+import emptyIcon from "../assets/empty.svg"
+import arrow from "../assets/dropdown-arrow.svg"
 
 function AddGroup() {
     const [name, setName] = useState('')
@@ -54,9 +56,7 @@ function AddGroup() {
 
                                         <div className="flex items-center gap-3">
                                             <div className="text-slate-400">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                                                    <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-                                                </svg>
+                                                <img src={arrow} className="w-6 h-6 -rotate-90"/>
                                             </div>
                                             <button
                                                 onClick={(e) => {
@@ -74,11 +74,9 @@ function AddGroup() {
                                 ))}
                             </ul>
                         ) : (
-                            <div className="flex flex-col items-center justify-center p-8 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-center">
+                            <div className="flex flex-col items-center justify-center p-8  rounded-xl border border-dashed  text-center">
                                 <div className="p-3 bg-white rounded-full shadow-sm mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-slate-400">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 5.472m0 0a5.995 5.995 0 00-4.512 4.287m5.823-1.43a6.008 6.008 0 01-5.824-3.379ZM14.75 7.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0ZM14.25 10.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0ZM19 19v-.75a.75.75 0 00-.75-.75H18.75" />
-                                    </svg>
+                                    <img src={emptyIcon} className="w-6 h-6"/>
                                 </div>
                                 <p className="text-slate-600 font-medium">No groups yet</p>
                                 <p className="text-slate-400 text-sm mt-1">Create a group to start splitting bills</p>
