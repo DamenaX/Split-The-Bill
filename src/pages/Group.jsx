@@ -38,7 +38,7 @@ function Group() {
                             <p className="text-sm text-gray-500">{group.members.length} Members</p>
                         </div>
 
-                        <div className="flex w-full justify-center items-center">
+                        <div className="flex w-full justify-end items-center">
                             <button onClick={() => navigate(`/groups/${groupId}/add-members`)} className=" rounded-md px-3 py-2 bg-emerald-600 text-white">+ Add member</button>
                         </div>
                     </div>
