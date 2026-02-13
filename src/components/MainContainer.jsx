@@ -23,8 +23,8 @@ function MainContainer({ children }) {
                 </div>
 
                 {/* Right Panel - Balances (Fills space, aligns content to left) */}
-                <div className="hidden lg:flex flex-1 justify-start bg-gray-50 min-w-[400px]">
-                    <div className="w-96 h-full p-4 overflow-y-auto">
+                <div className="hidden lg:flex flex-1 justify-start bg-gray-50 min-w-[400px] pr-5">
+                    <div className="w-96 p-4 overflow-y-auto">
                         {group ? (
                             <>
                                 <h2 className="text-lg font-semibold mb-4 text-emerald-700">Balances</h2>
