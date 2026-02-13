@@ -110,29 +110,29 @@ function AddExpense() {
         <MobileContainer variant="scrollable">
             <div className="w-full space-y-3">
                 <Heading tagName="h1" level="1"> Add an Expense</Heading>
-                <form className="flex flex-col space-y-3" onSubmit={onSubmit}>
-                    <div className="flex flex-col">
+                <form className="flex flex-col space-y-3 max-md:px-2  mt-5" onSubmit={onSubmit}>
+                    <div className="flex flex-col space-y-2">
                         <label htmlFor="expense-description">Description</label>
-                        <input id="expense-description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required className="border px-3 py-2 rounded" />
+                        <input id="expense-description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required className="border max-md:border-gray-300 border-gray-200 px-3 py-2 rounded" />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col space-y-2">
                         <label htmlFor="expense-total-amount">Total Amount</label>
-                        <input id="expense-total-amount" inputMode="numeric" value={total} onChange={e => setTotal(e.target.value)} placeholder="Total Amount" required className="border px-3 py-2 rounded" />
+                        <input id="expense-total-amount" inputMode="numeric" value={total} onChange={e => setTotal(e.target.value)} placeholder="Total Amount" required className="border max-md:border-gray-300 border-gray-200 px-3 py-2 rounded" />
                     </div>
 
-                    <div className="flex flex-col w-full space-y-1">
+                    <div className="flex flex-col w-full space-y-2">
                         <label htmlFor="number-of-payers">How many people helped pay the bill</label>
-                        <select value={numberOfPayers} onChange={(e) => setNumberOfPayers(e.target.value)} id="number-of-payers" name="number-of-payers" className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                        <select value={numberOfPayers} onChange={(e) => setNumberOfPayers(e.target.value)} id="number-of-payers" name="number-of-payers" className="w-full border max-md:border-gray-300 border-gray-200 rounded-sm px-2 h-10">
                             <option value="single">One Person</option>
                             <option value="multiple">Multiple people</option>
                         </select>
                     </div>
 
                     {numberOfPayers === 'single' ? (
-                        <div className="flex flex-col w-full space-y-1">
+                        <div className="flex flex-col w-full space-y-2">
                             <label htmlFor="single-payer">Who paid?</label>
-                            <select id="single-payer" value={singlePayerId} onChange={e => setSinglePayerId(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                            <select id="single-payer" value={singlePayerId} onChange={e => setSinglePayerId(e.target.value)} className="w-full border max-md:border-gray-300 border-gray-200 rounded-sm px-2 h-10">
                                 {group.members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
                             </select>
                         </div>
@@ -150,9 +150,9 @@ function AddExpense() {
                         </div>
                     )}
 
-                    <div className="flex flex-col w-full space-y-1">
+                    <div className="flex flex-col w-full space-y-2">
                         <label htmlFor="split">Split</label>
-                        <select value={split} onChange={(e) => setSplit(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                        <select value={split} onChange={(e) => setSplit(e.target.value)} className="w-full border max-md:border-gray-300  border-gray-200 rounded-sm px-2 h-10">
                             <option value="equally">Equally</option>
                             <option value="unequally">Unequally</option>
                         </select>
