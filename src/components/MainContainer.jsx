@@ -9,7 +9,7 @@ function MainContainer({ children }) {
     const group = groupId ? getGroupById(groupId) : null;
 
     return (
-        <div className="w-dvw h-dvh flex justify-center items-center overflow-hidden bg-gray-50">
+        <div className="w-dvw max-md:p-9 h-dvh flex justify-center items-center overflow-hidden bg-gray-50">
             {/* Desktop Layout */}
             <div className="hidden md:flex w-full h-full">
                 {/* Left Panel - Navigation (Fills space, aligns content to right) */}

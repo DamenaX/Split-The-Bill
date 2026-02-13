@@ -3,18 +3,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useGroups } from '../state/GroupsProvider'
 import dropDownIcon from "../assets/dropdown-arrow.svg";
 
-function DesktopNavigation() {
+function DesktopNavigation({ onLinkClick, className = "" }) {
     const { state } = useGroups()
     const groups = state?.groups || []
     const [isGroupsOpen, setIsGroupsOpen] = useState(false)
     const navigate = useNavigate()
 
+    const handleLinkClick = () => {
+        if (onLinkClick) onLinkClick()
+    }
+
     return (
-        <div className="flex flex-col w-64 h-full border-r border-gray-200 bg-gray-50 p-4 space-y-4">
+        <div className={`flex flex-col w-64 h-full border-r border-gray-200 bg-gray-50 p-4 space-y-4 ${className}`}>
             <h1 className="text-xl font-bold mb-4 text-emerald-700">Split the Bill</h1>
 
             <nav className="space-y-2">
-                <Link to="/" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">
+                <Link to="/" onClick={handleLinkClick} className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">
                     Home
                 </Link>
 
@@ -40,6 +44,7 @@ function DesktopNavigation() {
                                     <Link
                                         key={group.id}
                                         to={`/groups/${group.id}`}
+                                        onClick={handleLinkClick}
                                         className="block px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 hover:bg-gray-100 rounded-md"
                                     >
                                         {group.name}
