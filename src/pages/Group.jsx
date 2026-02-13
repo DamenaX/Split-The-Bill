@@ -49,7 +49,7 @@ function Group() {
                             const showAll = showAllMembers
                             const list = showAll ? group.members : group.members.slice(0, 3)
                             return (
-                                <div className="flex w-full"> 
+                                <div className="flex w-full">
                                     <div className="flex items-center space-x-8 w-fit">
                                         {list.map(m => (
                                             <div key={m.id} className="flex flex-col items-center">
@@ -85,7 +85,7 @@ function Group() {
                     </div>
                 </header>
 
-                <div id="tabs" className="flex w-full">
+                <div id="tabs" className="flex w-full lg:hidden">
                     <div className="flex justify-center px-3 py-2 w-full has-checked:border-b-2 border-emerald-600">
                         <input type="radio" name="tab" value="Expense" id="Expense" className="hidden peer" onChange={(e) => { setTab(e.target.value) }} defaultChecked />
                         <label htmlFor="Expense" className="text-center peer-checked:text-emerald-600 ">Expenses</label>
@@ -96,7 +96,16 @@ function Group() {
                         <label htmlFor="Balance" className="text-center peer-checked:text-emerald-600">Balance</label>
                     </div>
                 </div>
-                {tab === "Expense" ? <ExpenseTab group={group} /> : <BalanceTab group={group} />}
+
+                {/* Desktop: Always Expenses (Balances in Right Panel) */}
+                <div className="hidden lg:block w-full">
+                    <ExpenseTab group={group} />
+                </div>
+
+                {/* Mobile/Tablet: Switched Content */}
+                <div className="lg:hidden w-full">
+                    {tab === "Expense" ? <ExpenseTab group={group} /> : <BalanceTab group={group} />}
+                </div>
             </MobileContainer>
         </MainContainer>
     )

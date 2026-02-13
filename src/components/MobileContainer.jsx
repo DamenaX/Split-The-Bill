@@ -1,9 +1,9 @@
-function MobileContainer({ children, variant}) {
-    const base = "flex flex-col  max-w-sm h-dvh px-5 py-5 border-gray-100 space-y-2 "
+function MobileContainer({ children, variant }) {
+    const base = "flex flex-col w-full max-w-sm md:max-w-[600px] h-dvh md:h-auto px-5 py-5 border-gray-100 space-y-2 transition-all"
     const variants = {
-        centered: "items-center w-full justify-center",
-        normal: "items-center w-full flex-start",
-        scrollable: "items-center w-full overflow-auto",
+        centered: "items-center justify-center",
+        normal: "items-center flex-start",
+        scrollable: "items-center overflow-auto md:overflow-visible",
         narrow: "w-min"
     }
 
