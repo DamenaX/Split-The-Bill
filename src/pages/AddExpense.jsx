@@ -106,75 +106,75 @@ function AddExpense() {
     if (!group) return <MainContainer><MobileContainer variant="centered"><p>Group not found</p></MobileContainer></MainContainer>
 
     return (
-        
-            <MobileContainer variant="scrollable">
-                <div className="w-full space-y-3">
-                    <Heading tagName="h1" level="1"> Add an Expense</Heading>
-                    <form className="flex flex-col space-y-3" onSubmit={onSubmit}>
-                        <div className="flex flex-col">
-                            <label htmlFor="expense-description">Description</label>
-                            <input id="expense-description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required className="border px-3 py-2 rounded" />
-                        </div>
 
-                        <div className="flex flex-col">
-                            <label htmlFor="expense-total-amount">Total Amount</label>
-                            <input id="expense-total-amount" inputMode="numeric" value={total} onChange={e => setTotal(e.target.value)} placeholder="Total Amount" required className="border px-3 py-2 rounded" />
-                        </div>
+        <MobileContainer variant="scrollable">
+            <div className="w-full space-y-3">
+                <Heading tagName="h1" level="1"> Add an Expense</Heading>
+                <form className="flex flex-col space-y-3" onSubmit={onSubmit}>
+                    <div className="flex flex-col">
+                        <label htmlFor="expense-description">Description</label>
+                        <input id="expense-description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required className="border px-3 py-2 rounded" />
+                    </div>
 
+                    <div className="flex flex-col">
+                        <label htmlFor="expense-total-amount">Total Amount</label>
+                        <input id="expense-total-amount" inputMode="numeric" value={total} onChange={e => setTotal(e.target.value)} placeholder="Total Amount" required className="border px-3 py-2 rounded" />
+                    </div>
+
+                    <div className="flex flex-col w-full space-y-1">
+                        <label htmlFor="number-of-payers">How many people helped pay the bill</label>
+                        <select value={numberOfPayers} onChange={(e) => setNumberOfPayers(e.target.value)} id="number-of-payers" name="number-of-payers" className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                            <option value="single">One Person</option>
+                            <option value="multiple">Multiple people</option>
+                        </select>
+                    </div>
+
+                    {numberOfPayers === 'single' ? (
                         <div className="flex flex-col w-full space-y-1">
-                            <label htmlFor="number-of-payers">How many people helped pay the bill</label>
-                            <select value={numberOfPayers} onChange={(e) => setNumberOfPayers(e.target.value)} id="number-of-payers" name="number-of-payers" className="w-full border border-gray-200 rounded-sm px-2 h-8">
-                                <option value="single">One Person</option>
-                                <option value="multiple">Multiple people</option>
+                            <label htmlFor="single-payer">Who paid?</label>
+                            <select id="single-payer" value={singlePayerId} onChange={e => setSinglePayerId(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                                {group.members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
                             </select>
                         </div>
-
-                        {numberOfPayers === 'single' ? (
-                            <div className="flex flex-col w-full space-y-1">
-                                <label htmlFor="single-payer">Who paid?</label>
-                                <select id="single-payer" value={singlePayerId} onChange={e => setSinglePayerId(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
-                                    {group.members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                                </select>
-                            </div>
-                        ) : (
-                            <div className="flex flex-col space-y-2">
-                                {group.members.map(m => (
-                                    <div key={m.id} className="flex justify-between items-center">
-                                        <div className="flex items-center space-x-2">
-                                            <input type="checkbox" id={`payer-${m.id}`} checked={payerStates[m.id]?.selected || false} onChange={() => togglePayer(m.id)} />
-                                            <label htmlFor={`payer-${m.id}`}>{m.name}</label>
-                                        </div>
-                                        <input type="number" inputMode="numeric" placeholder="Amount paid" value={payerStates[m.id]?.amount || ''} onChange={e => setPayerAmount(m.id, e.target.value)} className="border px-2 py-1 w-32" />
+                    ) : (
+                        <div className="flex flex-col space-y-2">
+                            {group.members.map(m => (
+                                <div key={m.id} className="flex justify-between items-center">
+                                    <div className="flex items-center space-x-2">
+                                        <input type="checkbox" id={`payer-${m.id}`} checked={payerStates[m.id]?.selected || false} onChange={() => togglePayer(m.id)} />
+                                        <label htmlFor={`payer-${m.id}`}>{m.name}</label>
                                     </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <div className="flex flex-col w-full space-y-1">
-                            <label htmlFor="split">Split</label>
-                            <select value={split} onChange={(e) => setSplit(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
-                                <option value="equally">Equally</option>
-                                <option value="unequally">Unequally</option>
-                            </select>
+                                    <input type="number" inputMode="numeric" placeholder="Amount paid" value={payerStates[m.id]?.amount || ''} onChange={e => setPayerAmount(m.id, e.target.value)} className="border px-2 py-1 w-32" />
+                                </div>
+                            ))}
                         </div>
+                    )}
 
-                        {split === 'equally' ? null : (
-                            <div className="flex flex-col space-y-2">
-                                {group.members.map(m => (
-                                    <div key={m.id} className="flex justify-between items-center">
-                                        <label className="mr-2">{m.name}</label>
-                                        <input type="number" inputMode="numeric" placeholder="Share amount" value={shareStates[m.id] || ''} onChange={e => setShare(m.id, e.target.value)} className="border px-2 py-1 w-32" />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                    <div className="flex flex-col w-full space-y-1">
+                        <label htmlFor="split">Split</label>
+                        <select value={split} onChange={(e) => setSplit(e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 h-8">
+                            <option value="equally">Equally</option>
+                            <option value="unequally">Unequally</option>
+                        </select>
+                    </div>
 
-                        <Button type="submit" variant="default">Add Expense</Button>
+                    {split === 'equally' ? null : (
+                        <div className="flex flex-col space-y-2">
+                            {group.members.map(m => (
+                                <div key={m.id} className="flex justify-between items-center">
+                                    <label className="mr-2">{m.name}</label>
+                                    <input type="number" inputMode="numeric" placeholder="Share amount" value={shareStates[m.id] || ''} onChange={e => setShare(m.id, e.target.value)} className="border px-2 py-1 w-32" />
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
-                    </form>
-                </div>
-            </MobileContainer>
-       
+                    <Button type="submit" variant="default">Add Expense</Button>
+
+                </form>
+            </div>
+        </MobileContainer>
+
     )
 }
 
