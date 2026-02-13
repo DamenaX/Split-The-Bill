@@ -5,6 +5,7 @@ import Heading from '../components/text/Heading'
 import Button from '../components/buttons/Button'
 import MainContainer from '../components/MainContainer'
 import { useGroups } from '../state/GroupsProvider'
+import RightPanel from '../components/RightPanel'
 
 function AddGroup() {
     const [name, setName] = useState('')
@@ -22,6 +23,9 @@ function AddGroup() {
 
     return (
         <MainContainer>
+            {/* <MobileContainer variant="narrow">
+                <RightPanel />
+            </MobileContainer> */}
             <MobileContainer variant="centered">
                 <Heading tagName="h1" level="1" className="mb-6"> Split the Bill </Heading>
 

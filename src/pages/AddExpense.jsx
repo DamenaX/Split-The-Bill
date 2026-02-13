@@ -106,7 +106,7 @@ function AddExpense() {
     if (!group) return <MainContainer><MobileContainer variant="centered"><p>Group not found</p></MobileContainer></MainContainer>
 
     return (
-        <MainContainer>
+        
             <MobileContainer variant="scrollable">
                 <div className="w-full space-y-3">
                     <Heading tagName="h1" level="1"> Add an Expense</Heading>
@@ -174,7 +174,7 @@ function AddExpense() {
                     </form>
                 </div>
             </MobileContainer>
-        </MainContainer>
+       
     )
 }
 

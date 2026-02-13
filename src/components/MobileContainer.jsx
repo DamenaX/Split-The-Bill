@@ -1,9 +1,10 @@
 function MobileContainer({ children, variant}) {
-    const base = "flex flex-col items-center w-full max-w-sm h-dvh px-5 py-5 border-gray-100 space-y-2 "
+    const base = "flex flex-col  max-w-sm h-dvh px-5 py-5 border-gray-100 space-y-2 "
     const variants = {
-        centered: "justify-center",
-        normal: "flex-start",
-        scrollable: "overflow-scroll"
+        centered: "items-center w-full justify-center",
+        normal: "items-center w-full flex-start",
+        scrollable: "items-center w-full overflow-auto",
+        narrow: "w-min"
     }
 
 
