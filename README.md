@@ -1,7 +1,7 @@
 
 <table>
   <tr>
-      <td> <img width="700" height="300" alt="Screenshot (67)" src="https://github.com/user-attachments/assets/edf2218d-43e1-45d9-a40b-246c8c7f9485" /> </td>
+      <td>  <img width="700" height="300" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/f36cf8dc-e865-401d-b55c-5596227ac4cf" /> </td>
       <td> <img width="188" height="338" alt="image" src="https://github.com/user-attachments/assets/ba92fd46-28ef-4836-8f62-1ab9bf25a82c" /> </td>
   </tr>
 </table>
