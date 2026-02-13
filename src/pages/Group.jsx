@@ -33,12 +33,12 @@ function Group() {
             <MobileContainer variant="scrollable">
                 <header className="w-full ">
                     <div data-role="group-header" className="flex h-fit p-3 w-full rounded-md bg-gray-50 border border-gray-300">
-                        <div className="flex flex-col min-w-[80px] ">
+                        <div className="flex flex-col w-max min-w-[80px] ">
                             <p>{group.name}</p>
                             <p className="text-sm text-gray-500">{group.members.length} Members</p>
                         </div>
 
-                        <div className="flex w-full justify-end items-center">
+                        <div className="flex flex-1 justify-end items-center">
                             <button onClick={() => navigate(`/groups/${groupId}/add-members`)} className=" rounded-md px-3 py-2 bg-emerald-600 text-white">+ Add member</button>
                         </div>
                     </div>
