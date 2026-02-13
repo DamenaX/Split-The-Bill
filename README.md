@@ -2,12 +2,12 @@
 <table>
   <tr>
       <td>  <img width="700" height="300" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/f36cf8dc-e865-401d-b55c-5596227ac4cf" /> </td>
-      <td> <img width="188" height="338" alt="image" src="https://github.com/user-attachments/assets/ba92fd46-28ef-4836-8f62-1ab9bf25a82c" /> </td>
+      <td> <img src="https://github.com/user-attachments/assets/d718e76b-2de5-4eed-be93-6c5b8376b5a1" width="180" height="360"/>
+ </td>
   </tr>
 </table>
 
 ### Launch: https://split-the-bill-jet.vercel.app/
-
 
 
 # Split The Bill
