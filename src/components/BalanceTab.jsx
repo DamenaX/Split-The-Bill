@@ -64,7 +64,7 @@ function BalanceTab({ group }) {
                     const owedByList = netOwedByList
 
                     return (
-                        <li key={m.id} className="flex flex-col w-full px-4 py-3">
+                        <li key={m.id} className="flex flex-col w-full px-4 py-3 ">
                             <div className="flex w-full items-center justify-between gap-3">
                                 <div className="flex items-center gap-3">
                                     {/* <div

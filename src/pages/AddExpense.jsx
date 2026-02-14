@@ -109,8 +109,9 @@ function AddExpense() {
 
         <MobileContainer variant="scrollable">
             <div className="w-full space-y-3">
+                <div className="h-2"></div>
                 <Heading tagName="h1" level="1"> Add an Expense</Heading>
-                <form className="flex flex-col space-y-3 max-md:px-2 px-8 mt-5" onSubmit={onSubmit}>
+                <form className="flex flex-col space-y-3 max-md:px-2 px-8 mt-6" onSubmit={onSubmit}>
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="expense-description">Description</label>
                         <input id="expense-description" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required className="border max-md:border-gray-300 border-gray-200 px-3 py-2 rounded" />
