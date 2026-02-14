@@ -7,24 +7,24 @@ import Heading from "../components/text/Heading";
 import cancelicon from "../assets/cancel.svg";
 import { useGroups } from '../state/GroupsProvider'
 
-function makeId() { return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}` }
+function makeId() { return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}` }
 
 function AddMembers() {
-        const { groupId } = useParams()
+    const { groupId } = useParams()
     const navigate = useNavigate()
     const { getGroupById, addMembers } = useGroups()
 
-        const [existingMembers, setExistingMembers] = useState([])
-        const [members, setMembers] = useState([{ id: makeId(), name: '' }])
+    const [existingMembers, setExistingMembers] = useState([])
+    const [members, setMembers] = useState([{ id: makeId(), name: '' }])
 
-        useEffect(() => {
-            if (!groupId) return
-            const g = getGroupById(groupId)
-            if (g && g.members && g.members.length) {
-                // show existing members separately; the form only adds new members
-                setExistingMembers(g.members.map(m => ({ id: m.id, name: m.name })))
-            }
-        }, [groupId])
+    useEffect(() => {
+        if (!groupId) return
+        const g = getGroupById(groupId)
+        if (g && g.members && g.members.length) {
+            // show existing members separately; the form only adds new members
+            setExistingMembers(g.members.map(m => ({ id: m.id, name: m.name })))
+        }
+    }, [groupId])
 
     function addMember() {
         setMembers(prev => [...prev, { id: makeId(), name: '' }])
@@ -49,16 +49,20 @@ function AddMembers() {
     return (
         <MainContainer>
             <MobileContainer variant="scroll">
-                <Heading tagName="h1" level="1" className="mb-8">Add the names of the Group Members</Heading>
+                <div className="my-5">
+                    <Heading tagName="h1" level="1">Add Members</Heading>
+                    <p className="text-center text-gray-700">Add the names of the group members</p>
+                </div>
+
                 <form className='w-full space-y-8' onSubmit={onSubmit}>
-                        {existingMembers && existingMembers.length > 0 && (
-                            <div className="w-full rounded-md bg-gray-50 border border-gray-200 px-4 py-2">
-                                <p className="mb-2 text-gray-500">Existing members:</p>
-                                <ul className="">
-                                    {existingMembers.map(m => <li key={m.id} className="py-1">{m.name}</li>)}
-                                </ul>
-                            </div>
-                        )}
+                    {existingMembers && existingMembers.length > 0 && (
+                        <div className="w-full rounded-md bg-gray-50 max-sm:bg-white border border-gray-200 px-4 py-2">
+                            <p className="mb-2 text-gray-500">Existing members:</p>
+                            <ul className="">
+                                {existingMembers.map(m => <li key={m.id} className="py-1">{m.name}</li>)}
+                            </ul>
+                        </div>
+                    )}
                     <div className="space-y-1 w-full">
                         {members.map((member, index) => {
                             return (
@@ -66,7 +70,7 @@ function AddMembers() {
                                     <input value={member.name} onChange={e => updateName(member.id, e.target.value)} placeholder="Name" required className="flex-1 border border-gray-300 px-3 py-2 rounded" />
                                     {index !== 0 && (
                                         <button type="button" onClick={() => removeMember(member.id)}>
-                                            <img src={cancelicon} alt="remove" width="16px" height="16px"/>
+                                            <img src={cancelicon} alt="remove" width="16px" height="16px" />
                                         </button>
                                     )}
                                 </div>
