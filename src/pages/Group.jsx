@@ -86,14 +86,14 @@ function Group() {
                 </header>
 
                 <div id="tabs" className="flex w-full lg:hidden">
-                    <div className="flex justify-center px-3 py-2 w-full has-checked:border-b-2 border-emerald-600">
-                        <input type="radio" name="tab" value="Expense" id="Expense" className="hidden peer" onChange={(e) => { setTab(e.target.value) }} defaultChecked />
-                        <label htmlFor="Expense" className="text-center peer-checked:text-emerald-600 ">Expenses</label>
+                    <div className={`flex justify-center px-3 py-2 w-full border-emerald-600 ${tab === "Expense" ? "border-b-2 text-emerald-600" : ""}`}>
+                        <input type="radio" name="tab" value="Expense" id="Expense" className="sr-only peer" onChange={(e) => { setTab(e.target.value) }} checked={tab === "Balance"} />
+                        <label htmlFor="Expense" className="text-center">Expenses</label>
                     </div>
 
-                    <div className="flex justify-center px-3 py-2 w-full has-checked:border-b-2 border-emerald-600">
-                        <input type="radio" name="tab" value="Balance" id="Balance" className="hidden peer" onChange={(e) => { setTab(e.target.value) }} />
-                        <label htmlFor="Balance" className="text-center peer-checked:text-emerald-600">Balance</label>
+                    <div className={`flex justify-center px-3 py-2 w-full border-emerald-600 ${tab === "Balance" ? "border-b-2 text-emerald-600" : ""}`}>
+                        <input type="radio" name="tab" value="Balance" id="Balance" className="sr-only peer" onChange={(e) => { setTab(e.target.value) }} />
+                        <label htmlFor="Balance" className="text-center">Balance</label>
                     </div>
                 </div>
 
