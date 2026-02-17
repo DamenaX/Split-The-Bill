@@ -13,6 +13,8 @@
 # Split The Bill
 This project is a responsive complex bill splitting web application built with **React and TailwindCSS**. 
 
+It handles complex bills with single payer, multiple payers, equal and unequal splitting (unequal consumption) to determine who owes whom and how much with an intuitive UI.
+
 ## Problem Scenario
 We often run into situations where shared bills are more complicated than paying half-half or simply dividing the entire bill by the number of people, especially when eating out in groups. For example consider this scenario:
 
@@ -39,7 +41,7 @@ Luckily, you don't have to know or do multivariable algebra or type all this int
   </tr>
   <tr>
     <td>
-      <img width="287" height="343" alt="image" src="https://github.com/user-attachments/assets/361bbfe8-45c4-4c70-b7bf-e8439a1b00f8" />
+      <img width="300" height="343" alt="image" src="https://github.com/user-attachments/assets/361bbfe8-45c4-4c70-b7bf-e8439a1b00f8" />
     </td>
     <td>
      <img width="191" height="340" alt="image" src="https://github.com/user-attachments/assets/df3644a2-073d-4f98-9fcb-fd1ea0b09d5f" />
